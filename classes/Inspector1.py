@@ -4,11 +4,11 @@ import time
 
 class Inspector1(threading.Thread):
 
-    def __init__(self, component, buffers):
+    def __init__(self, component, bufferbox):
         threading.Thread.__init__(self)
         self._lock = threading.Lock()
         self.component = component
-        self.buffers = buffers
+        self.bufferbox = bufferbox
 
     def inspectItem(self, delay):
         print("Inspector 1: Inspecting Item - Time Delay: %s seconds" % delay)
@@ -16,11 +16,9 @@ class Inspector1(threading.Thread):
         self.sendItem()
 
     def sendItem(self):
-        for buffer in self.buffers:
-            if buffer.putItem(self.component):
-                print("%s taken from Inspector 1" % self.component)
-                return
-        print("Inspector 1 blocked")
+        self.bufferbox.putItem(self.component)
+        print("Inspect 1 inspected %s" % self.component)
+        return
 
     def run(self):
         with open("data/servinsp1.dat", "r") as data:

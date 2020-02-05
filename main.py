@@ -1,4 +1,5 @@
 from classes.Buffer import Buffer
+from classes.BufferBox import BufferBox
 from classes.Component import Component
 from classes.Inspector1 import Inspector1
 from classes.Inspector2 import Inspector2
@@ -11,11 +12,15 @@ def main():
     b1 = Buffer()
     b2 = Buffer()
     b3 = Buffer()
-    i1 = Inspector1([Component.C1], [b1, b2, b3])
-    i2 = Inspector2([Component.C2, Component.C3], b2, b3)
-    w1 = Workstation1(b1)
-    w2 = Workstation2(b1, b2)
-    w3 = Workstation3(b1, b3)
+    b4 = Buffer() # c2 buffer
+    b5 = Buffer() # c3 buffer
+    
+    bb = BufferBox(b1,b2,b3)
+    i1 = Inspector1([Component.C1], bb)
+    i2 = Inspector2([Component.C2, Component.C3], b4, b5)
+    w1 = Workstation1(bb)
+    w2 = Workstation2(bb, b4)
+    w3 = Workstation3(bb, b5)
     i1.start()
     i2.start()
     w1.start()

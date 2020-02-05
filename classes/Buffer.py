@@ -15,3 +15,5 @@ class Buffer:
         else:
             self.q.put(item)
             return True
+    def size(self):
+        return self.q.qsize()
