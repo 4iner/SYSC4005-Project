@@ -27,3 +27,4 @@ class Inspector1(threading.Thread):
             for dataline in data:
                 self.inspectItem(float(dataline))
 
+

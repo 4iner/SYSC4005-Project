@@ -4,6 +4,7 @@ import time
 
 class Workstation2(threading.Thread):
     def __init__(self, buffer1, buffer2):
+        super().__init__()
         self.buffer1 = buffer1
         self.buffer2 = buffer2
 

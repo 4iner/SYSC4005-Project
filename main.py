@@ -22,6 +22,5 @@ def main():
     w2.start()
     w3.start()
 
-
 if __name__ == "__main__":
     main()
