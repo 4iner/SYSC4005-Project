@@ -7,15 +7,15 @@ class Workstation1(threading.Thread):
         super().__init__()
 
     def processItem(self, t):
-        if(self.buffer.getItem()):
-            time.sleep(t)
-            print("Workstation 1 made P1")
+        self.buffer.getItem()
+        time.sleep(t)
+        print("Workstation 1 made P1")
 
     def run(self):
-            f = open("data/ws1.dat","r")
-            lines = f.readlines()
-            for line in lines:
-                self.processItem(float(line))
+        f = open("data/ws1.dat","r")
+        lines = f.readlines()
+        for line in lines:
+            self.processItem(float(line))
 
-            print("Workstation 1 times done")
+        print("Workstation 1 times done")
                 
