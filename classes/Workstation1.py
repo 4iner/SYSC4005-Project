@@ -10,6 +10,7 @@ class Workstation1(threading.Thread):
 
     def processItem(self, t):
         self.buffer.getItem1()
+        print("Workstation 1 is processing P1 with %f delay" % t)
         time.sleep(t)
         print("Workstation 1 made P1")
 

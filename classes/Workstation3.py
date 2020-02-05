@@ -11,6 +11,7 @@ class Workstation3(threading.Thread):
     def processItem(self, t):
         self.bufferbox.getItem3()
         self.buffer2.getItem()
+        print("Workstation 3 is processing P3 with %f delay" % t)
         time.sleep(t)
         print("Workstation 3 made P3")
 
