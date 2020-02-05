@@ -6,8 +6,16 @@ class Workstation3(threading.Thread):
         self.buffer1 = buffer1
         self.buffer2 = buffer2
 
-    def processItem(self, time):
-        pass
+    def processItem(self, t):
+        self.buffer1.getItem()
+        self.buffer2.getItem()
+        time.sleep(t)
+        print("Workstation 3 made P3")
 
     def run(self):
-        pass
+        f = open("data/ws3.dat","r")
+        lines = f.readlines()
+        for line in lines:
+            self.processItem(float(line))
+
+        print("Workstation 3 times done")

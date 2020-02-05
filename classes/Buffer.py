@@ -6,9 +6,8 @@ class Buffer:
         pass
     
     def getItem(self):
-        if not self.q.empty():
-            item = self.q.get()
-            return item
+        item = self.q.get(block=True)
+        return item
     
     def putItem(self, item):
         if self.q.qsize() == 2:
