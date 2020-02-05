@@ -1,4 +1,6 @@
 import threading
+import time
+
 
 class Workstation2(threading.Thread):
     def __init__(self, buffer1, buffer2):

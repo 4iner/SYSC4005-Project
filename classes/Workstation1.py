@@ -1,10 +1,12 @@
 import threading
 import time
 
+
 class Workstation1(threading.Thread):
     def __init__(self, buffer):
         super().__init__()
         self.buffer = buffer
+        super().__init__()
 
     def processItem(self, t):
         self.buffer.getItem()
