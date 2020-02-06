@@ -1,4 +1,5 @@
 from classes.Buffer import Buffer
+from classes.Buffer23 import Buffer23
 from classes.BufferBox import BufferBox
 from classes.Component import Component
 from classes.Inspector1 import Inspector1
@@ -12,8 +13,8 @@ def main():
     b1 = Buffer()
     b2 = Buffer()
     b3 = Buffer()
-    b4 = Buffer() # c2 buffer
-    b5 = Buffer() # c3 buffer
+    b4 = Buffer23() # c2 buffer
+    b5 = Buffer23() # c3 buffer
     
     bb = BufferBox(b1,b2,b3)
     i1 = Inspector1([Component.C1], bb)

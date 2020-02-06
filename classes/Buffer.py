@@ -1,19 +1,31 @@
 import queue
+import threading
+import time
 
 class Buffer:
-    q = queue.Queue(3)
     def __init__(self):
-        pass
+        self.q = queue.Queue(3)
+        self.qsize = 0
+        self.lock = threading.Lock()
     
     def getItem(self):
-        item = self.q.get(block=True)
-        return item
+            self.lock.acquire()
+            if(self.qsize == 0):
+                self.lock.release()
+                return False
+            item = self.q.get()
+            self.qsize = self.qsize - 1
+            self.lock.release()
+            return item
     
     def putItem(self, item):
-        if self.q.qsize() == 2:
-            return False
-        else:
+            self.lock.acquire()
+            if self.q.qsize == 2:
+                self.lock.release()
+                return False
             self.q.put(item)
+            self.qsize = self.qsize + 1
+            self.lock.release()
             return True
     def size(self):
-        return self.q.qsize()
+        return self.qsize

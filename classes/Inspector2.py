@@ -3,27 +3,27 @@ import threading
 import time
 
 from classes.Component import Component
+from classes.Shared import Shared
 
 
 class Inspector2(threading.Thread):
 
     def __init__(self, component, buffer2, buffer3):
-        threading.Thread.__init__(self)
+        super(Inspector2,self).__init__(name="Inspector2")
         self._lock = threading.Lock()
         self.component = component
         self.buffer2 = buffer2
         self.buffer3 = buffer3
 
     def inspectItem(self, delay, component, buffer):
-        print("Inspector 2: Inspecting Item - Time Delay: %s seconds" % delay)
-        time.sleep(float(delay))
+        Shared.log("Inspector 2: Inspecting Item - Time Delay: %s seconds" % delay)
+        time.sleep(delay)
         self.sendItem(component, buffer)
 
     def sendItem(self, component, buffer):
-        if buffer.putItem(component):
-            print("%s taken from Inspector 2" % component)
-            return
-        print("Inspector 2 blocked")
+        buffer.putItem(component)
+        Shared.log("%s taken from Inspector 2" % component)
+        return
 
     def run(self):
         lst22 = []
@@ -41,7 +41,7 @@ class Inspector2(threading.Thread):
             currentcomponent = self.component[number]
             if currentcomponent == Component.C2:
                 count22 += 1
-                self.inspectItem(lst22[count22], currentcomponent, self.buffer2)
+                self.inspectItem(Shared.timeFromString(lst22[count22]), currentcomponent, self.buffer2)
             elif currentcomponent == Component.C3:
                 count23 += 1
-                self.inspectItem(lst23[count23], currentcomponent, self.buffer3)
+                self.inspectItem(Shared.timeFromString(lst23[count23]), currentcomponent, self.buffer3)

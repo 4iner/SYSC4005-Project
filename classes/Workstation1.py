@@ -1,25 +1,25 @@
 import threading
 import time
 
+from classes.Shared import Shared
+
 
 class Workstation1(threading.Thread):
     def __init__(self, bufferbox):
-        super().__init__()
+        super(Workstation1,self).__init__(name="Workstation1")
         self.buffer = bufferbox
-        super().__init__()
 
     def processItem(self, t):
         self.buffer.getItem1()
-        print("Workstation 1 is processing P1 with %f delay" % t)
+        Shared.log("Workstation 1 is processing P1 with %f delay" % t)
         time.sleep(t)
-        print("Workstation 1 made P1")
+        Shared.log("Workstation 1 made P1")
 
     def run(self):
         f = open("data/ws1.dat","r")
         lines = f.readlines()
         for line in lines:
-            print(line)
-            self.processItem(float(line))
+            self.processItem(Shared.timeFromString(line))
 
-        print("Workstation 1 times done")
+        Shared.log("Workstation 1 times done")
                 
