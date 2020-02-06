@@ -15,15 +15,15 @@ class Inspector2(threading.Thread):
         self.buffer2 = buffer2
         self.buffer3 = buffer3
 
-    def inspectItem(self, delay, component, buffer):
-        Shared.log("Inspector 2: Inspecting Item - Time Delay: %s seconds" % delay)
+    def inspectItem(self, delay, component):
+        Shared.log("Inspector 2: Inspecting Item {} with Time Delay: {} seconds".format(component, delay))
         time.sleep(delay)
-        self.sendItem(component, buffer)
-
-    def sendItem(self, component, buffer):
-        buffer.putItem(component)
-        Shared.log("%s taken from Inspector 2" % component)
-        return
+        Shared.log("Inspector 2: Finished {}".format(component))
+        if component == Component.C2:
+            self.buffer2.putItem(component)
+        elif component == Component.C3:
+            self.buffer3.putItem(component)
+        
 
     def run(self):
         lst22 = []
@@ -41,7 +41,7 @@ class Inspector2(threading.Thread):
             currentcomponent = self.component[number]
             if currentcomponent == Component.C2:
                 count22 += 1
-                self.inspectItem(Shared.timeFromString(lst22[count22]), currentcomponent, self.buffer2)
+                self.inspectItem(Shared.timeFromString(lst22[count22]), currentcomponent)
             elif currentcomponent == Component.C3:
                 count23 += 1
-                self.inspectItem(Shared.timeFromString(lst23[count23]), currentcomponent, self.buffer3)
+                self.inspectItem(Shared.timeFromString(lst23[count23]), currentcomponent)

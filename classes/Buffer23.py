@@ -11,20 +11,22 @@ class Buffer23:
     
     def getItem(self):
             self.cv.acquire()
-            while(self.q.empty()):
-                Shared.log("Buffer 2: blocked")
+
+            while(self.q.qsize() == 0):
                 self.cv.wait() 
-            item = self.q.get(block=True)
-            self.cv.notify()
+
+           
+            item = self.q.get()
+            self.cv.notifyAll()
             self.cv.release()
             return item
     
     def putItem(self, item):
             self.cv.acquire()
-            while self.q.qsize() == 2:
+            while self.q.qsize() >= 2:
                 self.cv.wait()
             self.q.put(item)
-            self.cv.notify()
+            self.cv.notifyAll()
             self.cv.release()
     def size(self):
         return self.q.qsize()

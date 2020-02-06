@@ -16,7 +16,7 @@ class Shared:
 
 
     def timeFromString(st):
-        return float(st)/10
+        return float(st)/100
     
     def log(txt):
         logger.info(txt)
