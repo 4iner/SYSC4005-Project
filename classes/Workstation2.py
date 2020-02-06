@@ -3,7 +3,8 @@ import time
 
 from classes.Shared import Shared
 
-
+# workstation 2 creates P2 given C1, 2
+# keeps a counter of P2s made 
 class Workstation2(threading.Thread):
     def __init__(self, bufferbox, buffer2):
         super(Workstation2,self).__init__(name="Workstation2")
@@ -11,6 +12,8 @@ class Workstation2(threading.Thread):
         self.buffer2 = buffer2
         self.counter = 0
 
+    # Processes item given t delay. C2 is received first because
+    # it may take longer to get C1
     def processItem(self, t):
         item2 = self.buffer2.getItem()
         Shared.log("Workstation 2: Got C2")

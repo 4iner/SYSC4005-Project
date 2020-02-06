@@ -6,6 +6,8 @@ from classes.Component import Component
 from classes.Shared import Shared
 
 
+# Inspector2 inspects C2,C3 components with the given delays and
+# sends them to the respective buffer, which are also references in the workstations
 class Inspector2(threading.Thread):
 
     def __init__(self, component, buffer2, buffer3):
@@ -15,6 +17,7 @@ class Inspector2(threading.Thread):
         self.buffer2 = buffer2
         self.buffer3 = buffer3
 
+    # inspects item then decides which buffer to send to
     def inspectItem(self, delay, component):
         Shared.log("Inspector 2: Inspecting Item {} with Time Delay: {} seconds".format(component, delay))
         time.sleep(delay)
@@ -36,7 +39,9 @@ class Inspector2(threading.Thread):
         with open("data/servinsp23.dat", "rt") as data:
             for dataline in data:
                 lst23.append(dataline.strip())
+        
         while count22 < len(lst22) and count23 < len(lst23):
+            # pick a random number to decide between c2,c3 to inspect
             number = random.randint(0, 1)
             currentcomponent = self.component[number]
             if currentcomponent == Component.C2:

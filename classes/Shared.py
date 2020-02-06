@@ -11,6 +11,7 @@ handler.setFormatter(logFormatter)
 
 logger.addHandler(handler)
 
+# Shared class that is used to make simulation easier and provides logging
 class Shared:
     
 

@@ -3,6 +3,8 @@ import time
 
 from classes.Shared import Shared
 
+# Inspector1 inspects C1 components with the given delays and
+# sends them to the bufferbox, which decides the routing policy to the workstations
 class Inspector1(threading.Thread):
 
     def __init__(self, component, bufferbox):
@@ -11,11 +13,13 @@ class Inspector1(threading.Thread):
         self.component = component
         self.bufferbox = bufferbox
 
+    # inspect an item given a delay
     def inspectItem(self, delay):
         Shared.log("Inspector 1: Inspecting Item - Time Delay: %s seconds" % delay)
         time.sleep(delay)
         self.sendItem()
 
+    # finished processing, send item to bufferbox
     def sendItem(self):
         self.bufferbox.putItem(self.component)
         Shared.log("Inspect 1: inspected %s" % self.component)
