@@ -1,4 +1,5 @@
 import random
+import sys
 import threading
 import time
 
@@ -11,11 +12,12 @@ from classes.Shared import Shared
 class Inspector2(threading.Thread):
 
     def __init__(self, component, buffer2, buffer3):
-        super(Inspector2,self).__init__(name="Inspector2")
+        super(Inspector2, self).__init__(name="Inspector2")
         self._lock = threading.Lock()
         self.component = component
         self.buffer2 = buffer2
         self.buffer3 = buffer3
+        self.indicator = None
 
     # inspects item then decides which buffer to send to
     def inspectItem(self, delay, component):
@@ -26,7 +28,6 @@ class Inspector2(threading.Thread):
             self.buffer2.putItem(component)
         elif component == Component.C3:
             self.buffer3.putItem(component)
-        
 
     def run(self):
         lst22 = []
@@ -39,8 +40,7 @@ class Inspector2(threading.Thread):
         with open("data/servinsp23.dat", "rt") as data:
             for dataline in data:
                 lst23.append(dataline.strip())
-        
-        while count22 < len(lst22) and count23 < len(lst23):
+        while count22 < len(lst22) and count23 < len(lst23) and not self.indicator:
             # pick a random number to decide between c2,c3 to inspect
             number = random.randint(0, 1)
             currentcomponent = self.component[number]
@@ -50,3 +50,8 @@ class Inspector2(threading.Thread):
             elif currentcomponent == Component.C3:
                 count23 += 1
                 self.inspectItem(Shared.timeFromString(lst23[count23]), currentcomponent)
+        if not self.indicator:
+            Shared.log("Inspector 2 is complete.")
+            self.indicator = True
+        else:
+            Shared.log("Inspector 2 has been terminated.")
