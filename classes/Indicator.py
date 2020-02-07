@@ -21,7 +21,6 @@ class Indicator(threading.Thread):
             # if done, get out of the loop
             if self.isdone:
                 break
-        time.sleep(1.5)
         # print out results
         Shared.log("Manufacturer finished.")
         for thread in range(2, 5):
