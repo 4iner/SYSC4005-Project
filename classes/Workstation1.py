@@ -1,3 +1,4 @@
+import sys
 import threading
 import time
 
@@ -23,11 +24,7 @@ class Workstation1(threading.Thread):
         Shared.log("{} so far".format(self.counter))
 
     def run(self):
-        f = open("data/ws1.dat","r")
+        f = open("data/ws1.dat", "r")
         lines = f.readlines()
         for line in lines:
             self.processItem(Shared.timeFromString(line))
-
-        Shared.log("Workstation 1 times done")
-        Shared.log("Workstation 1 made {} P1".format(self.counter))
-                
