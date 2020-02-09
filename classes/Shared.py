@@ -13,11 +13,12 @@ logger.addHandler(handler)
 
 # Shared class that is used to make simulation easier and provides logging
 class Shared:
-    
+    timeFactor = 100
+
 
 
     def timeFromString(st):
-        return float(st)/100
-    
+        return float(st)/Shared.timeFactor
+
     def log(txt):
         logger.info(txt)

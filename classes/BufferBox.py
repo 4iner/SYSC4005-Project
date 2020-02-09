@@ -1,5 +1,6 @@
 import threading
 import asyncio
+import time
 
 from classes.Shared import Shared
 
@@ -12,18 +13,23 @@ class BufferBox:
         self.buffer2 = buffer2
         self.buffer3 = buffer3
         self.cv = threading.Condition()
-    
+        self.blockedTime = 0
+
     # puts item into the buffer with the least amount of waiting components
     # if all 3 buffers are full, it blocks inspector 1 from adding components
 
     def putItem(self, item):
             self.cv.acquire()
+            blocked = False
+            bt = time.time()
             while(self.buffer1.size() == 2 and self.buffer2.size() == 2 and self.buffer3.size() == 2):
                 Shared.log("Inspector 1: blocked")
+                blocked = True
                 # calculate time blocked here (can do in inspector1)
                 self.cv.notifyAll()
-                self.cv.wait()  
-
+                self.cv.wait()
+            if(blocked):
+                self.blockedTime += time.Time() - bt
             if self.buffer1.size() == 0 :
                 self.buffer1.putItem(item)
             elif self.buffer2.size() == 0:
@@ -39,13 +45,13 @@ class BufferBox:
 
             self.cv.notifyAll()
             self.cv.release()
-            
+
     # gets item for workstation 1
     # blocks if the buffer is empty
     def getItem1(self):
             self.cv.acquire()
             while self.buffer1.size() == 0:
-                # calc workstation1 block time here for c1, can either do it here or in workstation1 
+                # calc workstation1 block time here for c1, can either do it here or in workstation1
                 self.cv.wait()
             item = self.buffer1.getItem()
             self.cv.notifyAll()
