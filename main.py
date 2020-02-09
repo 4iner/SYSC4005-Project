@@ -10,6 +10,8 @@ from classes.Workstation2 import Workstation2
 from classes.Workstation3 import Workstation3
 import time
 
+from classes.Shared import Shared
+
 
 def main():
     # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
@@ -48,13 +50,22 @@ def main():
     w3.start()
     ind.start()
     ind.join()
+
+    tf = Shared.timeFactor
     t2 = time.time()
     tim = t2-t1
-    print(tim)
-    th2 = tim * 100
+    th2 = tim * tf
     th= w1.counter  /  th2
+    th1= w2.counter  /  th2
+    th3= w3.counter  /  th2
 
-    print(th)
+    Shared.log("throughput time for workstation1: "+str(th*60)+" p1 per hour")
+    Shared.log("throughput time for workstation2: "+str(th1*60)+" p2 per hour")
+    Shared.log("throughput time for workstation3: "+str(th3*60)+ " p3 per hour")
+
+    Shared.log("idle time for inspector1: "+ str(bb.blockedTime * tf)+ " minutes")
+    Shared.log("idle time for inspector2: " +str(b4.blockedTime*tf + b5.blockedTime*tf)+ " minutes")
+
 
 
 if __name__ == "__main__":
