@@ -61,6 +61,13 @@ def main():
         writeTo('data_generated/servinsp1.dat','weibull',size,alpha=11,beta=1.2)
         writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
         writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
+
+        i1.datadir = 'data_generated/servinsp1.dat'
+        i2.datadir1 = 'data_generated/servinsp22.dat'
+        i2.datadir2 = 'data_generated/servinsp23.dat'
+        w1.datadir = 'data_generated/ws1.dat'
+        w2.datadir = 'data_generated/ws2.dat'
+        w3.datadir = 'data_generated/ws3.dat'
             
 
     else: 
@@ -68,12 +75,12 @@ def main():
         pass
 
     # # start threads
-    # i1.start()
-    # i2.start()
-    # w1.start()
-    # w2.start()
-    # w3.start()
-    # ind.start()
+    i1.start()
+    i2.start()
+    w1.start()
+    w2.start()
+    w3.start()
+    ind.start()
 
 def writeTo(file, dist, size, mean=0, alpha=0, beta=0):
     if dist == "weibull":

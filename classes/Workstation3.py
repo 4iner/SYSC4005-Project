@@ -7,6 +7,7 @@ from classes.Shared import Shared
 # workstation 3 creates P3 given C1, C3
 # keeps a counter of P3s made 
 class Workstation3(threading.Thread):
+    datadir = "data/ws3.dat"
     def __init__(self, bufferbox, buffer2):
         super(Workstation3, self).__init__(name="Workstation3")
         self.bufferbox = bufferbox
@@ -27,7 +28,7 @@ class Workstation3(threading.Thread):
         Shared.log("{} so far".format(self.counter))
 
     def run(self):
-        f = open("data/ws3.dat", "r")
+        f = open(self.datadir, "r")
         lines = f.readlines()
         for line in lines:
             self.processItem(Shared.timeFromString(line))

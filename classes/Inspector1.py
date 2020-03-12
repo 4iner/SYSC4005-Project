@@ -8,7 +8,7 @@ from classes.Shared import Shared
 # Inspector1 inspects C1 components with the given delays and
 # sends them to the bufferbox, which decides the routing policy to the workstations
 class Inspector1(threading.Thread):
-
+    datadir = "data/servinsp1.dat"
     def __init__(self, component, bufferbox):
         super(Inspector1, self).__init__(name="Inspector1")
         self._lock = threading.Lock()
@@ -29,7 +29,7 @@ class Inspector1(threading.Thread):
         return
 
     def run(self):
-        with open("data/servinsp1.dat", "r") as data:
+        with open(self.datadir, "r") as data:
             for dataline in data:
                 self.inspectItem(Shared.timeFromString(dataline))
                 if self.indicator:

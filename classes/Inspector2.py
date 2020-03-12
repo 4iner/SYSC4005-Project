@@ -10,7 +10,8 @@ from classes.Shared import Shared
 # Inspector2 inspects C2,C3 components with the given delays and
 # sends them to the respective buffer, which are also references in the workstations
 class Inspector2(threading.Thread):
-
+    datadir1 = "data/servinsp22.dat"
+    datadir2 = "data/servinsp23.dat"
     def __init__(self, component, buffer2, buffer3):
         super(Inspector2, self).__init__(name="Inspector2")
         self._lock = threading.Lock()
@@ -34,10 +35,10 @@ class Inspector2(threading.Thread):
         lst23 = []
         count22 = 0
         count23 = 0
-        with open("data/servinsp22.dat", "rt") as data:
+        with open(self.datadir1, "rt") as data:
             for dataline in data:
                 lst22.append(dataline.strip())
-        with open("data/servinsp23.dat", "rt") as data:
+        with open(self.datadir2, "rt") as data:
             for dataline in data:
                 lst23.append(dataline.strip())
         while count22 < len(lst22) and count23 < len(lst23) and not self.indicator:
