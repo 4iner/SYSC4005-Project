@@ -11,6 +11,8 @@ from classes.Workstation3 import Workstation3
 from helper import getValWei, getValXP
 import shutil
 import os
+from classes.Shared import Shared
+import time
 
 
 def main():
@@ -74,6 +76,9 @@ def main():
         
         pass
 
+    
+    t1 = time.time()
+
     # # start threads
     i1.start()
     i2.start()
@@ -81,6 +86,22 @@ def main():
     w2.start()
     w3.start()
     ind.start()
+    ind.join()
+
+    tf = Shared.timeFactor
+    t2 = time.time()
+    tim = t2-t1
+    th2 = tim * tf
+    th= w1.counter  /  th2
+    th1= w2.counter  /  th2
+    th3= w3.counter  /  th2
+
+    Shared.log("throughput time for workstation1: "+str(th*60)+" p1 per hour")
+    Shared.log("throughput time for workstation2: "+str(th1*60)+" p2 per hour")
+    Shared.log("throughput time for workstation3: "+str(th3*60)+ " p3 per hour")
+
+    Shared.log("idle time for inspector1: "+ str(bb.blockedTime * tf)+ " minutes")
+    Shared.log("idle time for inspector2: " +str(b4.blockedTime*tf + b5.blockedTime*tf)+ " minutes")
 
 def writeTo(file, dist, size, mean=0, alpha=0, beta=0):
     if dist == "weibull":
