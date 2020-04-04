@@ -8,6 +8,7 @@ from classes.Inspector2 import Inspector2
 from classes.Workstation1 import Workstation1
 from classes.Workstation2 import Workstation2
 from classes.Workstation3 import Workstation3
+from classes.Validation import Validation
 from helper import getValWei, getValXP
 import shutil
 import os
@@ -42,7 +43,7 @@ def main():
     ind = Indicator([i1, i2, w1, w2, w3])
 
     # Prompt user for type of data, generated/given
-    print("Enter 1 for Given data, 2 to Generate data")
+    print("Enter 1 for Given data, 2 to Generate data, 3 to Validate data")
     genOrGiven = int(input())
     if(genOrGiven == 2):
         # print("Deleting previous generated data...")
@@ -68,19 +69,26 @@ def main():
         w1.datadir = 'data_generated/ws1.dat'
         w2.datadir = 'data_generated/ws2.dat'
         w3.datadir = 'data_generated/ws3.dat'
-            
-
+    
+    elif genOrGiven == 3:
+        print("Enter 1 for 1000 Samples, 2 for 30000 Samples")
+        input_key = int(input())
+        if input_key != 1 and input_key != 2:
+            print('Invalid Input')
+            pass
+        else :
+            validate = Validation(input_key)
     else: 
-        
+        # # start threads
+        i1.start()
+        i2.start()
+        w1.start()
+        w2.start()
+        w3.start()
+        ind.start()
         pass
 
-    # # start threads
-    i1.start()
-    i2.start()
-    w1.start()
-    w2.start()
-    w3.start()
-    ind.start()
+    
 
 def writeTo(file, dist, size, mean=0, alpha=0, beta=0):
     if dist == "weibull":
