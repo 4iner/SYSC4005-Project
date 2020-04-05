@@ -44,23 +44,31 @@ class Blackbox:
 
         print("Workstation 1 Average -> {}".format(self.averageArr(self.workstation1[0], self.workstation1[1])))
         print("Workstation 1 Arrival Rate -> {}".format(self.arrivalRate(self.workstation1[0], self.workstation1[1])))
-        print("Workstation 1 Little's Law -> {}".format(self.arrivalRate(self.workstation1[0], self.workstation1[1]), self.averageArr(self.workstation1[0], self.workstation1[1])))
+        print("Workstation 1 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.workstation1[0], self.workstation1[1]), self.averageArr(self.workstation1[0], self.workstation1[1]))))
         print("Workstation 1 Equal Length -> {}".format(self.equalLength(self.workstation1[0], self.workstation1[1])))
         print("Workstation 1 Clock -> {}".format(self.clockCheck(self.workstation1[0], self.workstation1[1])))
         print()
         print("Workstation 2 Average -> {}".format(self.averageArr(self.workstation2[0], self.workstation2[1])))
+        print("Workstation 2 Arrival Rate -> {}".format(self.arrivalRate(self.workstation2[0], self.workstation2[1])))
+        print("Workstation 2 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.workstation2[0], self.workstation2[1]), self.averageArr(self.workstation2[0], self.workstation2[1]))))
         print("Workstation 2 Equal Length -> {}".format(self.equalLength(self.workstation2[0], self.workstation2[1])))
         print("Workstation 2 Clock -> {}".format(self.clockCheck(self.workstation2[0], self.workstation2[1])))
         print()
         print("Workstation 3 Average -> {}".format(self.averageArr(self.workstation3[0], self.workstation3[1])))
+        print("Workstation 3 Arrival Rate -> {}".format(self.arrivalRate(self.workstation3[0], self.workstation3[1])))
+        print("Workstation 3 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.workstation3[0], self.workstation3[1]), self.averageArr(self.workstation3[0], self.workstation3[1]))))
         print("Workstation 3 Equal Length -> {}".format(self.equalLength(self.workstation3[0], self.workstation3[1])))
         print("Workstation 3 Clock -> {}".format(self.clockCheck(self.workstation3[0], self.workstation3[1])))
         print()
         print("Inspector 1 Average -> {}".format(self.averageArr(self.inspector1[0], self.inspector1[1])))
+        print("Inspector 1 Arrival Rate -> {}".format(self.arrivalRate(self.inspector1[0], self.inspector1[1])))
+        print("Inspector 1 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.inspector1[0], self.inspector1[1]), self.averageArr(self.inspector1[0], self.inspector1[1]))))
         print("Inspector 1 Equal Length -> {}".format(self.equalLength(self.inspector1[0], self.inspector1[1])))
         print("Inspector 1 Clock -> {}".format(self.clockCheck(self.inspector1[0], self.inspector1[1])))
         print()
         print("Inspector 2 Average -> {}".format(self.averageArr(self.inspector2[0], self.inspector2[1])))
+        print("Inspector 2 Arrival Rate -> {}".format(self.arrivalRate(self.inspector2[0], self.inspector2[1])))
+        print("Inspector 2 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.inspector2[0], self.inspector2[1]), self.averageArr(self.inspector2[0], self.inspector2[1]))))
         print("Inspector 2 Equal Length -> {}".format(self.equalLength(self.inspector2[0], self.inspector2[1])))
         print("Inspector 2 Clock -> {}".format(self.clockCheck(self.inspector2[0], self.inspector2[1])))
 
@@ -89,6 +97,8 @@ class Blackbox:
     def arrivalRate(self, array1, array2):
         if not (self.equalLength(array1, array2)):
             return -1
+        elif self.averageArr(array1, array2) == 0:
+            return 0
         totalSum = 0
         for x in range(len(array1)):
             totalSum += array2[x] - array1[x]
