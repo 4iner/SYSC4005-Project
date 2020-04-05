@@ -29,7 +29,7 @@ class BufferBox:
                 self.cv.notifyAll()
                 self.cv.wait()
             if(blocked):
-                self.blockedTime += time.Time() - bt
+                self.blockedTime += time.time() - bt
             if self.buffer1.size() == 0 :
                 self.buffer1.putItem(item)
             elif self.buffer2.size() == 0:

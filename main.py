@@ -18,6 +18,7 @@ import time
 def main():
    
     # Prompt user for type of data, generated/given
+    generatedDataChosen = False
     print("Enter 1 for Given data, 2 to Generate data")
     genOrGiven = int(input())
     if(genOrGiven == 2):
@@ -26,17 +27,22 @@ def main():
         # print("Making directory...")
         # os.mkdir("data_generated")
        
-        print("Please enter the preferred size of your data: ")
+        print("Please enter the preferred size of your data, or 0 to use previously generated data")
         size = input()
         size = int(size)
+        if size == 0:
+            pass
+        else:
 
-        # Generated data is created with parameters calculated from the data. The report should contain these values.
-        writeTo('data_generated/ws1.dat','exponential',size,mean=4.604417)
-        writeTo('data_generated/ws2.dat','exponential',size,mean=11.09261)
-        writeTo('data_generated/ws3.dat','weibull',size,alpha=9,beta=1)
-        writeTo('data_generated/servinsp1.dat','weibull',size,alpha=11,beta=1.2)
-        writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
-        writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
+            # Generated data is created with parameters calculated from the data. The report should contain these values.
+            writeTo('data_generated/ws1.dat','exponential',size,mean=4.604417)
+            writeTo('data_generated/ws2.dat','exponential',size,mean=11.09261)
+            writeTo('data_generated/ws3.dat','weibull',size,alpha=9,beta=1)
+            writeTo('data_generated/servinsp1.dat','weibull',size,alpha=11,beta=1.2)
+            writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
+            writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
+
+        generatedDataChosen = True
             
 
     else: 
@@ -74,13 +80,15 @@ def main():
         # indicator to see when a inspector or workstation has completed their commands
         ind = Indicator([i1, i2, w1, w2, w3])
 
-        # set data directory for workstations and inspectors
-        i1.datadir = 'data_generated/servinsp1.dat'
-        i2.datadir1 = 'data_generated/servinsp22.dat'
-        i2.datadir2 = 'data_generated/servinsp23.dat'
-        w1.datadir = 'data_generated/ws1.dat'
-        w2.datadir = 'data_generated/ws2.dat'
-        w3.datadir = 'data_generated/ws3.dat'
+        if generatedDataChosen:
+            # set data directory for workstations and inspectors based on generated data
+            i1.datadir = 'data_generated/servinsp1.dat'
+            i2.datadir1 = 'data_generated/servinsp22.dat'
+            i2.datadir2 = 'data_generated/servinsp23.dat'
+            w1.datadir = 'data_generated/ws1.dat'
+            w2.datadir = 'data_generated/ws2.dat'
+            w3.datadir = 'data_generated/ws3.dat'
+
         t1 = time.time()
 
         # # start threads
@@ -107,11 +115,12 @@ def main():
     # print everything
 
     for r in range(len(replicationsData)):
-        Shared.log("throughput time for workstation1: "+str(replicationsData[r][0])+" p1 per hour")
-        Shared.log("throughput time for workstation2: "+str(replicationsData[r][1])+" p2 per hour")
-        Shared.log("throughput time for workstation3: "+str(replicationsData[r][2])+ " p3 per hour")
-        Shared.log("idle time for inspector1: "+ str(replicationsData[r][3])+ " minutes")
-        Shared.log("idle time for inspector2: " +str(replicationsData[r][4])+ " minutes")
+        Shared.log("Replication: %d" % (r + 1))
+        print(str(replicationsData[r][0]))
+        print(str(replicationsData[r][1]))
+        print(str(replicationsData[r][2]))
+        print(str(replicationsData[r][3]))
+        print(str(replicationsData[r][4]))
         
     
         
