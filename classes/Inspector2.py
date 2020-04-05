@@ -12,18 +12,21 @@ from classes.Shared import Shared
 class Inspector2(threading.Thread):
     datadir1 = "data/servinsp22.dat"
     datadir2 = "data/servinsp23.dat"
-    def __init__(self, component, buffer2, buffer3):
+    def __init__(self, component, buffer2, buffer3, blackbox):
         super(Inspector2, self).__init__(name="Inspector2")
         self._lock = threading.Lock()
         self.component = component
         self.buffer2 = buffer2
         self.buffer3 = buffer3
+        self.blackbox = blackbox
         self.indicator = None
 
     # inspects item then decides which buffer to send to
     def inspectItem(self, delay, component):
         Shared.log("Inspector 2: Inspecting Item {} with Time Delay: {} seconds".format(component, delay))
+        self.blackbox.inspector2[0].append(time.time())
         time.sleep(delay)
+        self.blackbox.inspector2[1].append(time.time())
         Shared.log("Inspector 2: Finished {}".format(component))
         if component == Component.C2:
             self.buffer2.putItem(component)

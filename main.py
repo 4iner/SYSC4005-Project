@@ -8,7 +8,7 @@ from classes.Inspector2 import Inspector2
 from classes.Workstation1 import Workstation1
 from classes.Workstation2 import Workstation2
 from classes.Workstation3 import Workstation3
-from classes.Validation import Validation
+from classes.BlackBox import Blackbox
 from helper import getValWei, getValXP
 import shutil
 import os
@@ -22,13 +22,16 @@ def main():
     b4 = Buffer23() # c2 buffer
     b5 = Buffer23() # c3 buffer
 
+    #Initiate Blackbox
+    blackbox = Blackbox()
+
     # create threads given the buffers
     bb = BufferBox(b1, b2, b3)
-    i1 = Inspector1([Component.C1], bb)
-    i2 = Inspector2([Component.C2, Component.C3], b4, b5)
-    w1 = Workstation1(bb)
-    w2 = Workstation2(bb, b4)
-    w3 = Workstation3(bb, b5)
+    i1 = Inspector1([Component.C1], bb, blackbox)
+    i2 = Inspector2([Component.C2, Component.C3], b4, b5, blackbox)
+    w1 = Workstation1(bb, blackbox)
+    w2 = Workstation2(bb, b4, blackbox)
+    w3 = Workstation3(bb, b5, blackbox)
 
     # making the threads daemon, so if one of the threads stop then the program stops
     # similar to a manufacturing facility, if they don't have the components then no
@@ -40,10 +43,10 @@ def main():
     w3.daemon = True
 
     # indicator to see when a inspector or workstation has completed their commands
-    ind = Indicator([i1, i2, w1, w2, w3])
+    ind = Indicator([i1, i2, w1, w2, w3], blackbox)
 
     # Prompt user for type of data, generated/given
-    print("Enter 1 for Given data, 2 to Generate data, 3 to Validate data")
+    print("Enter 1 for Given data, 2 to Generate data")
     genOrGiven = int(input())
     if(genOrGiven == 2):
         # print("Deleting previous generated data...")
@@ -70,14 +73,7 @@ def main():
         w2.datadir = 'data_generated/ws2.dat'
         w3.datadir = 'data_generated/ws3.dat'
     
-    elif genOrGiven == 3:
-        print("Enter 1 for 1000 Samples, 2 for 30000 Samples")
-        input_key = int(input())
-        if input_key != 1 and input_key != 2:
-            print('Invalid Input')
-            pass
-        else :
-            validate = Validation(input_key)
+        
     else: 
         # # start threads
         i1.start()
