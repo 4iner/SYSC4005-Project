@@ -102,7 +102,7 @@ class Blackbox:
         totalSum = 0
         for x in range(len(array1)):
             totalSum += array2[x] - array1[x]
-        return len(array1)/totalSum
+        return (len(array1)-1)/totalSum
 
     def littleLaw(self, arrival, average):
         return arrival * average
