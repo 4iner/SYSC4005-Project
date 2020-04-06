@@ -75,16 +75,16 @@ def main():
     
         
     else: 
-        # # start threads
-        i1.start()
-        i2.start()
-        w1.start()
-        w2.start()
-        w3.start()
-        ind.start()
+
         pass
 
-    
+    # # start threads
+    i1.start()
+    i2.start()
+    w1.start()
+    w2.start()
+    w3.start()
+    ind.start()
 
 def writeTo(file, dist, size, mean=0, alpha=0, beta=0):
     if dist == "weibull":

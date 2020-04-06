@@ -73,26 +73,31 @@ class Blackbox:
         print("Component 3 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component3[0], self.component3[1]), self.averageArr(self.component3[0], self.component3[1]))))
         print()
         print("Inspector 1 Clock \t\t-> \t{}".format(self.clockCheck(self.inspector1[0], self.inspector1[1])))
+        print("Inspector 1 Inspected \t\t-> \t{} Component(s)".format((len(self.inspector1[0]))))
         print("Inspector 1 Average \t\t-> \t{}".format(self.averageArr(self.inspector1[0], self.inspector1[1])))
         print("Inspector 1 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.inspector1[0], self.inspector1[1])))
         print("Inspector 1 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.inspector1[0], self.inspector1[1]), self.averageArr(self.inspector1[0], self.inspector1[1]))))
         print()
         print("Inspector 2 Clock \t\t-> \t{}".format(self.clockCheck(self.inspector2[0], self.inspector2[1])))
+        print("Inspector 2 Inspected \t\t-> \t{} Component(s)".format((len(self.inspector2[0]))))
         print("Inspector 2 Average \t\t-> \t{}".format(self.averageArr(self.inspector2[0], self.inspector2[1])))
         print("Inspector 2 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.inspector2[0], self.inspector2[1])))
         print("Inspector 2 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.inspector2[0], self.inspector2[1]), self.averageArr(self.inspector2[0], self.inspector2[1]))))
         print()
         print("Workstation 1 Clock \t\t-> \t{}".format(self.clockCheck(self.workstation1[0], self.workstation1[1])))
+        print("Workstation 1 Produced \t\t-> \t{} Product(s)".format(len(self.workstation1[0])))
         print("Workstation 1 Average \t\t-> \t{}".format(self.averageArr(self.workstation1[0], self.workstation1[1])))
         print("Workstation 1 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation1[0], self.workstation1[1])))
         print("Workstation 1 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation1[0], self.workstation1[1]), self.averageArr(self.workstation1[0], self.workstation1[1]))))
         print()
         print("Workstation 2 Clock \t\t-> \t{}".format(self.clockCheck(self.workstation2[0], self.workstation2[1])))
+        print("Workstation 2 Produced \t\t-> \t{} Product(s)".format(len(self.workstation2[0])))
         print("Workstation 2 Average \t\t-> \t{}".format(self.averageArr(self.workstation2[0], self.workstation2[1])))
         print("Workstation 2 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation2[0], self.workstation2[1])))
         print("Workstation 2 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation2[0], self.workstation2[1]), self.averageArr(self.workstation2[0], self.workstation2[1]))))
         print()
         print("Workstation 3 Clock \t\t-> \t{}".format(self.clockCheck(self.workstation3[0], self.workstation3[1])))
+        print("Workstation 3 Produced \t\t-> \t{} Product(s)".format(len(self.workstation3[0])))
         print("Workstation 3 Average \t\t-> \t{}".format(self.averageArr(self.workstation3[0], self.workstation3[1])))
         print("Workstation 3 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation3[0], self.workstation3[1])))
         print("Workstation 3 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation3[0], self.workstation3[1]), self.averageArr(self.workstation3[0], self.workstation3[1]))))
@@ -124,6 +129,8 @@ class Blackbox:
 
     def littleLaw(self, arrival, average):
         return arrival * average
+
+
 
     def printArr(self, array):
         for x in range(len(array[0])):
