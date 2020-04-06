@@ -44,16 +44,16 @@ class Blackbox:
     # "No. items in the queue" = "arrival rate" x "average time spent in the queue"
 
     def roundCheck(self):
-        # Checking Equal Length Arrays
         # Checking Clock Times if all are in order 
-
+        # Checks if there are any components in queue
+        # Averages out the time spent in box
+        # Calculates the Arrival rate
+        # Then computing the number of items in queue aka Little's Law
         print()
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         print("\t\t\tBlackbox Results")
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-
-
-
+        print()
         print("Component 1 Clock \t\t-> \t{}".format(self.clockCheck(self.component1[0], self.component1[1])))
         print("Component 1 Remainders? \t-> \t{}".format(self.remainders(self.component1[0], self.component1[1])))
         print("Component 1 Average \t\t-> \t{}".format(self.averageArr(self.component1[0], self.component1[1])))
