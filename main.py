@@ -15,15 +15,15 @@ import os
 
 
 def main():
-    # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
-    b1 = Buffer()
-    b2 = Buffer()
-    b3 = Buffer()
-    b4 = Buffer23() # c2 buffer
-    b5 = Buffer23() # c3 buffer
-
     #Initiate Blackbox
     blackbox = Blackbox()
+
+    # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
+    b1 = Buffer(blackbox)
+    b2 = Buffer(blackbox)
+    b3 = Buffer(blackbox)
+    b4 = Buffer23(2, blackbox) # c2 buffer
+    b5 = Buffer23(3, blackbox) # c3 buffer
 
     # create threads given the buffers
     bb = BufferBox(b1, b2, b3)

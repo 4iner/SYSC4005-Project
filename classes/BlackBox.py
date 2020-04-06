@@ -4,17 +4,26 @@ import time
 class Blackbox:
     def __init__(self):
         # Making 1-D Arrays
+        self.component1 = []
+        self.component2 = []
+        self.component3 = []
         self.inspector1 = []
         self.inspector2 = []
         self.workstation1 = []
         self.workstation2 = []
         self.workstation3 = []  
-        # Converting 1-D to 2-D Arrays      
+        # Converting 1-D to 2-D Arrays   
+        self.component1.append([])
+        self.component2.append([])
+        self.component3.append([]) 
         self.inspector1.append([])
         self.inspector2.append([])
         self.workstation1.append([])
         self.workstation2.append([])
         self.workstation3.append([])
+        self.component1.append([])
+        self.component2.append([])
+        self.component3.append([]) 
         self.inspector1.append([])
         self.inspector2.append([])
         self.workstation1.append([])
@@ -37,72 +46,81 @@ class Blackbox:
     def roundCheck(self):
         # Checking Equal Length Arrays
         # Checking Clock Times if all are in order 
-        #self.printArr(self.workstation1)
-        print()
-        print("Blackbox Results")
-        print()
 
-        print("Workstation 1 Average -> {}".format(self.averageArr(self.workstation1[0], self.workstation1[1])))
-        print("Workstation 1 Arrival Rate -> {}".format(self.arrivalRate(self.workstation1[0], self.workstation1[1])))
-        print("Workstation 1 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.workstation1[0], self.workstation1[1]), self.averageArr(self.workstation1[0], self.workstation1[1]))))
-        # print("Workstation 1 Equal Length -> {}".format(self.equalLength(self.workstation1[0], self.workstation1[1])))
-        # print("Workstation 1 Clock -> {}".format(self.clockCheck(self.workstation1[0], self.workstation1[1])))
         print()
-        print("Workstation 2 Average -> {}".format(self.averageArr(self.workstation2[0], self.workstation2[1])))
-        print("Workstation 2 Arrival Rate -> {}".format(self.arrivalRate(self.workstation2[0], self.workstation2[1])))
-        print("Workstation 2 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.workstation2[0], self.workstation2[1]), self.averageArr(self.workstation2[0], self.workstation2[1]))))
-        # print("Workstation 2 Equal Length -> {}".format(self.equalLength(self.workstation2[0], self.workstation2[1])))
-        # print("Workstation 2 Clock -> {}".format(self.clockCheck(self.workstation2[0], self.workstation2[1])))
-        print()
-        print("Workstation 3 Average -> {}".format(self.averageArr(self.workstation3[0], self.workstation3[1])))
-        print("Workstation 3 Arrival Rate -> {}".format(self.arrivalRate(self.workstation3[0], self.workstation3[1])))
-        print("Workstation 3 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.workstation3[0], self.workstation3[1]), self.averageArr(self.workstation3[0], self.workstation3[1]))))
-        # print("Workstation 3 Equal Length -> {}".format(self.equalLength(self.workstation3[0], self.workstation3[1])))
-        # print("Workstation 3 Clock -> {}".format(self.clockCheck(self.workstation3[0], self.workstation3[1])))
-        print()
-        print("Inspector 1 Average -> {}".format(self.averageArr(self.inspector1[0], self.inspector1[1])))
-        print("Inspector 1 Arrival Rate -> {}".format(self.arrivalRate(self.inspector1[0], self.inspector1[1])))
-        print("Inspector 1 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.inspector1[0], self.inspector1[1]), self.averageArr(self.inspector1[0], self.inspector1[1]))))
-        # print("Inspector 1 Equal Length -> {}".format(self.equalLength(self.inspector1[0], self.inspector1[1])))
-        # print("Inspector 1 Clock -> {}".format(self.clockCheck(self.inspector1[0], self.inspector1[1])))
-        print()
-        print("Inspector 2 Average -> {}".format(self.averageArr(self.inspector2[0], self.inspector2[1])))
-        print("Inspector 2 Arrival Rate -> {}".format(self.arrivalRate(self.inspector2[0], self.inspector2[1])))
-        print("Inspector 2 Little's Law -> {}".format(self.littleLaw(self.arrivalRate(self.inspector2[0], self.inspector2[1]), self.averageArr(self.inspector2[0], self.inspector2[1]))))
-        # print("Inspector 2 Equal Length -> {}".format(self.equalLength(self.inspector2[0], self.inspector2[1])))
-        # print("Inspector 2 Clock -> {}".format(self.clockCheck(self.inspector2[0], self.inspector2[1])))
+        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        print("\t\t\tBlackbox Results")
+        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
 
-    def equalLength(self, array1, array2):
-        return len(array1) == len(array2)
+
+        print("Component 1 Clock \t\t-> \t{}".format(self.clockCheck(self.component1[0], self.component1[1])))
+        print("Component 1 Remainders? \t-> \t{}".format(self.remainders(self.component1[0], self.component1[1])))
+        print("Component 1 Average \t\t-> \t{}".format(self.averageArr(self.component1[0], self.component1[1])))
+        print("Component 1 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.component1[0], self.component1[1])))
+        print("Component 1 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component1[0], self.component1[1]), self.averageArr(self.component1[0], self.component1[1]))))
+        print()
+        print("Component 2 Clock \t\t-> \t{}".format(self.clockCheck(self.component2[0], self.component2[1])))
+        print("Component 2 Remainders? \t-> \t{}".format(self.remainders(self.component2[0], self.component2[1])))
+        print("Component 2 Average \t\t-> \t{}".format(self.averageArr(self.component2[0], self.component2[1])))
+        print("Component 2 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.component2[0], self.component2[1])))
+        print("Component 2 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component2[0], self.component2[1]), self.averageArr(self.component2[0], self.component2[1]))))
+        print()
+        print("Component 3 Clock \t\t-> \t{}".format(self.clockCheck(self.component3[0], self.component3[1])))
+        print("Component 3 Remainders? \t-> \t{}".format(self.remainders(self.component3[0], self.component3[1])))
+        print("Component 3 Average \t\t-> \t{}".format(self.averageArr(self.component3[0], self.component3[1])))
+        print("Component 3 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.component3[0], self.component3[1])))
+        print("Component 3 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component3[0], self.component3[1]), self.averageArr(self.component3[0], self.component3[1]))))
+        print()
+        print("Inspector 1 Clock \t\t-> \t{}".format(self.clockCheck(self.inspector1[0], self.inspector1[1])))
+        print("Inspector 1 Average \t\t-> \t{}".format(self.averageArr(self.inspector1[0], self.inspector1[1])))
+        print("Inspector 1 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.inspector1[0], self.inspector1[1])))
+        print("Inspector 1 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.inspector1[0], self.inspector1[1]), self.averageArr(self.inspector1[0], self.inspector1[1]))))
+        print()
+        print("Inspector 2 Clock \t\t-> \t{}".format(self.clockCheck(self.inspector2[0], self.inspector2[1])))
+        print("Inspector 2 Average \t\t-> \t{}".format(self.averageArr(self.inspector2[0], self.inspector2[1])))
+        print("Inspector 2 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.inspector2[0], self.inspector2[1])))
+        print("Inspector 2 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.inspector2[0], self.inspector2[1]), self.averageArr(self.inspector2[0], self.inspector2[1]))))
+        print()
+        print("Workstation 1 Clock \t\t-> \t{}".format(self.clockCheck(self.workstation1[0], self.workstation1[1])))
+        print("Workstation 1 Average \t\t-> \t{}".format(self.averageArr(self.workstation1[0], self.workstation1[1])))
+        print("Workstation 1 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation1[0], self.workstation1[1])))
+        print("Workstation 1 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation1[0], self.workstation1[1]), self.averageArr(self.workstation1[0], self.workstation1[1]))))
+        print()
+        print("Workstation 2 Clock \t\t-> \t{}".format(self.clockCheck(self.workstation2[0], self.workstation2[1])))
+        print("Workstation 2 Average \t\t-> \t{}".format(self.averageArr(self.workstation2[0], self.workstation2[1])))
+        print("Workstation 2 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation2[0], self.workstation2[1])))
+        print("Workstation 2 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation2[0], self.workstation2[1]), self.averageArr(self.workstation2[0], self.workstation2[1]))))
+        print()
+        print("Workstation 3 Clock \t\t-> \t{}".format(self.clockCheck(self.workstation3[0], self.workstation3[1])))
+        print("Workstation 3 Average \t\t-> \t{}".format(self.averageArr(self.workstation3[0], self.workstation3[1])))
+        print("Workstation 3 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation3[0], self.workstation3[1])))
+        print("Workstation 3 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation3[0], self.workstation3[1]), self.averageArr(self.workstation3[0], self.workstation3[1]))))
 
     def clockCheck(self, array1, array2):
-        if not (self.equalLength(array1, array2)):
-            return False
-        for x in range(len(array1)):
+        for x in range(len(array2)):
             if (array1[x] > array2[x]):
-                return False
-        return True
+                return "Bad"
+        return "Good"
+
+    def remainders(self, array1, array2):
+        return len(array1) - len(array2)
 
     def averageArr(self, array1, array2):
         count = 0
-        if not (self.equalLength(array1, array2)):
-            return -1
-        elif len(array1) == 0:
+        if len(array1) == 0:
             return 0.0
-        for x in range(len(array1)):
+        for x in range(len(array2)):
             count += array2[x] - array1[x]
-        return count/len(array1)
+        return count/len(array2)
 
     def arrivalRate(self, array1, array2):
-        if not (self.equalLength(array1, array2)):
-            return -1
-        elif self.averageArr(array1, array2) == 0:
+        if self.averageArr(array1, array2) == 0:
             return 0.0
         totalSum = 0
-        for x in range(len(array1)):
+        for x in range(len(array2)):
             totalSum += array2[x] - array1[x]
-        return (len(array1)-1)/totalSum
+        return (len(array2)-1)/totalSum
 
     def littleLaw(self, arrival, average):
         return arrival * average
@@ -110,53 +128,4 @@ class Blackbox:
     def printArr(self, array):
         for x in range(len(array[0])):
             print("Array: {}".format(array[0][x]))
-
-
-# import numpy
-
-# class Validation:
-#     def __init__(self, n):
-#         if n == 1:
-#             self.validate_data(1000, 'data/servinsp1.dat', 'Inspector 1 - Component 1')
-#             self.validate_data(1000, 'data/servinsp22.dat', 'Inspector 2 - Component 2')
-#             self.validate_data(1000, 'data/servinsp23.dat', 'Inspector 2 - Component 3')
-#             self.validate_data(1000, 'data/ws1.dat', 'Workstation 1')
-#             self.validate_data(1000, 'data/ws2.dat', 'Workstation 2')
-#             self.validate_data(1000, 'data/ws3.dat', 'Workstation 3')
-#         elif n == 2:
-#             self.validate_data(30000, 'data/servinsp1.dat', 'Inspector 1 - Component 1')
-#             self.validate_data(30000, 'data/servinsp22.dat', 'Inspector 2 - Component 2')
-#             self.validate_data(30000, 'data/servinsp23.dat', 'Inspector 2 - Component 3')
-#             self.validate_data(30000, 'data/ws1.dat', 'Workstation 1')
-#             self.validate_data(30000, 'data/ws2.dat', 'Workstation 2')
-#             self.validate_data(30000, 'data/ws3.dat', 'Workstation 3')
-
-#     def validate_data(self, n, data, name):
-#         # Finding the average of the given data from .dat
-#         input_data = open(data).read().splitlines()
-#         a_mean = 0
-#         for x in range(0, 300):
-#             a_mean += float(input_data[x])
-#         a_mean = a_mean / 300
-
-#         # Finding the average of the random data 
-#         r_mean = 0
-#         for x in range(0, n):
-#             r_mean += self.random_mean(input_data)
-#         r_mean = r_mean / n
-
-#         print(name)
-#         # Comparing the two means
-#         print('Actual Mean: ', a_mean)
-#         print('Random Mean: ', r_mean)
-#         print('Yield(%):    ', (abs(a_mean - r_mean) / a_mean) * 100, '\n')
-
-#     def random_mean(self, input_data):
-#         total = 0
-#         for x in range(0, 300):
-#             total += float(input_data[x])
-#         mean = total / 300
-#         #   Return random mean 
-#         return numpy.random.exponential(mean, 1)[0]
-
 
