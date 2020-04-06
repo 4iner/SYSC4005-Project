@@ -29,6 +29,9 @@ class Blackbox:
         self.workstation1.append([])
         self.workstation2.append([])
         self.workstation3.append([])
+        # Arrival Time Start
+        self.startTime = time.time()
+        self.endTime = 0
         
     # Idea with arrays
     # Each queue will have a 2D-Array arr[a,b]
@@ -122,10 +125,7 @@ class Blackbox:
     def arrivalRate(self, array1, array2):
         if self.averageArr(array1, array2) == 0:
             return 0.0
-        totalSum = 0
-        for x in range(len(array2)):
-            totalSum += array2[x] - array1[x]
-        return (len(array2)-1)/totalSum
+        return (len(array2)-1)/(self.endTime - self.startTime)
 
     def littleLaw(self, arrival, average):
         return arrival * average

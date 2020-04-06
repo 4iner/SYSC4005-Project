@@ -27,4 +27,5 @@ class Indicator(threading.Thread):
         Shared.log("Manufacturer finished.")
         for thread in range(2, 5):
             Shared.log("Workstation {} made {} P{} Product(s)".format(thread - 1, self.threads[thread].counter, thread - 1))
+        self.blackbox.endTime = time.time()
         self.blackbox.roundCheck()
