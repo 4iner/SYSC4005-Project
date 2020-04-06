@@ -14,6 +14,7 @@ class BufferBox:
         self.buffer3 = buffer3
         self.cv = threading.Condition()
         self.blockedTime = 0
+        self.bt = 0
 
     # puts item into the buffer with the least amount of waiting components
     # if all 3 buffers are full, it blocks inspector 1 from adding components
@@ -21,7 +22,7 @@ class BufferBox:
     def putItem(self, item):
             self.cv.acquire()
             blocked = False
-            bt = time.time()
+            self.bt = time.time()
             while(self.buffer1.size() == 2 and self.buffer2.size() == 2 and self.buffer3.size() == 2):
                 Shared.log("Inspector 1: blocked")
                 blocked = True
@@ -29,7 +30,7 @@ class BufferBox:
                 self.cv.notifyAll()
                 self.cv.wait()
             if(blocked):
-                self.blockedTime += time.time() - bt
+                self.blockedTime += time.time() - self.bt
             if self.buffer1.size() == 0 :
                 self.buffer1.putItem(item)
             elif self.buffer2.size() == 0:

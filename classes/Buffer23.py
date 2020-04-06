@@ -13,6 +13,7 @@ class Buffer23:
         self.cv = threading.Condition()
         self.q = queue.Queue(3)
         self.blockedTime=0
+        self.bt=0
 
     # get item from queue, blocking if empty
     def getItem(self):
@@ -33,14 +34,14 @@ class Buffer23:
     def putItem(self, item):
             self.cv.acquire() # acquire lock
             blocked=False
-            bt = time.time()
+            self.bt = time.time()
             while self.q.qsize() >= 2:
                 blocked=True
                 # calculate time blocked here for inspector2
                 # calculate inspector2 block time here maybe?
                 self.cv.wait() # release lock and wait
             if (blocked):
-                self.blockedTime += time.time() - bt
+                self.blockedTime += time.time() - self.bt
             self.q.put(item)
             self.cv.notifyAll() # notify waiting threads
             self.cv.release() # release lock
