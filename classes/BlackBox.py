@@ -5,6 +5,8 @@ class Blackbox:
     def __init__(self):
         # Making 1-D Arrays
         self.component1 = []
+        self.component12 = []
+        self.component13 = []
         self.component2 = []
         self.component3 = []
         self.inspector1 = []
@@ -14,6 +16,8 @@ class Blackbox:
         self.workstation3 = []  
         # Converting 1-D to 2-D Arrays   
         self.component1.append([])
+        self.component12.append([])
+        self.component13.append([])
         self.component2.append([])
         self.component3.append([]) 
         self.inspector1.append([])
@@ -22,6 +26,8 @@ class Blackbox:
         self.workstation2.append([])
         self.workstation3.append([])
         self.component1.append([])
+        self.component12.append([])
+        self.component13.append([])
         self.component2.append([])
         self.component3.append([]) 
         self.inspector1.append([])
@@ -59,21 +65,33 @@ class Blackbox:
         print()
         print("Component 1 Clock \t\t-> \t{}".format(self.clockCheck(self.component1[0], self.component1[1])))
         print("Component 1 Remainders? \t-> \t{}".format(self.remainders(self.component1[0], self.component1[1])))
-        print("Component 1 Average \t\t-> \t{}".format(self.averageArr(self.component1[0], self.component1[1])))
-        print("Component 1 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.component1[0], self.component1[1])))
-        print("Component 1 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component1[0], self.component1[1]), self.averageArr(self.component1[0], self.component1[1]))))
+        print("Buffer 1 Average \t\t-> \t{}".format(self.averageArr(self.component1[0], self.component1[1])))
+        print("Buffer 1 Arrival Rate \t\t-> \t{}".format(self.arrivalRate(self.component1[0], self.component1[1])))
+        print("Buffer 1 Little's Law \t\t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component1[0], self.component1[1]), self.averageArr(self.component1[0], self.component1[1]))))
+        print()
+        print("Component 12 Clock \t\t-> \t{}".format(self.clockCheck(self.component12[0], self.component12[1])))
+        print("Component 12 Remainders? \t-> \t{}".format(self.remainders(self.component12[0], self.component12[1])))
+        print("Buffer 12 Average \t\t-> \t{}".format(self.averageArr(self.component12[0], self.component12[1])))
+        print("Buffer 12 Arrival Rate \t\t-> \t{}".format(self.arrivalRate(self.component12[0], self.component12[1])))
+        print("Buffer 12 Little's Law \t\t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component12[0], self.component12[1]), self.averageArr(self.component12[0], self.component12[1]))))
+        print()
+        print("Component 12 Clock \t\t-> \t{}".format(self.clockCheck(self.component13[0], self.component13[1])))
+        print("Component 12 Remainders? \t-> \t{}".format(self.remainders(self.component13[0], self.component13[1])))
+        print("Buffer 12 Average \t\t-> \t{}".format(self.averageArr(self.component13[0], self.component13[1])))
+        print("Buffer 12 Arrival Rate \t\t-> \t{}".format(self.arrivalRate(self.component13[0], self.component13[1])))
+        print("Buffer 12 Little's Law \t\t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component13[0], self.component13[1]), self.averageArr(self.component13[0], self.component13[1]))))
         print()
         print("Component 2 Clock \t\t-> \t{}".format(self.clockCheck(self.component2[0], self.component2[1])))
         print("Component 2 Remainders? \t-> \t{}".format(self.remainders(self.component2[0], self.component2[1])))
-        print("Component 2 Average \t\t-> \t{}".format(self.averageArr(self.component2[0], self.component2[1])))
-        print("Component 2 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.component2[0], self.component2[1])))
-        print("Component 2 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component2[0], self.component2[1]), self.averageArr(self.component2[0], self.component2[1]))))
+        print("Buffer 2 Average \t\t-> \t{}".format(self.averageArr(self.component2[0], self.component2[1])))
+        print("Buffer 2 Arrival Rate \t\t-> \t{}".format(self.arrivalRate(self.component2[0], self.component2[1])))
+        print("Buffer 2 Little's Law \t\t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component2[0], self.component2[1]), self.averageArr(self.component2[0], self.component2[1]))))
         print()
         print("Component 3 Clock \t\t-> \t{}".format(self.clockCheck(self.component3[0], self.component3[1])))
         print("Component 3 Remainders? \t-> \t{}".format(self.remainders(self.component3[0], self.component3[1])))
-        print("Component 3 Average \t\t-> \t{}".format(self.averageArr(self.component3[0], self.component3[1])))
-        print("Component 3 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.component3[0], self.component3[1])))
-        print("Component 3 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component3[0], self.component3[1]), self.averageArr(self.component3[0], self.component3[1]))))
+        print("Buffer 3 Average \t\t-> \t{}".format(self.averageArr(self.component3[0], self.component3[1])))
+        print("Buffer 3 Arrival Rate \t\t-> \t{}".format(self.arrivalRate(self.component3[0], self.component3[1])))
+        print("Buffer 3 Little's Law \t\t-> \t{}".format(self.littleLaw(self.arrivalRate(self.component3[0], self.component3[1]), self.averageArr(self.component3[0], self.component3[1]))))
         print()
         print("Inspector 1 Clock \t\t-> \t{}".format(self.clockCheck(self.inspector1[0], self.inspector1[1])))
         print("Inspector 1 Inspected \t\t-> \t{} Component(s)".format((len(self.inspector1[0]))))
@@ -104,7 +122,8 @@ class Blackbox:
         print("Workstation 3 Average \t\t-> \t{}".format(self.averageArr(self.workstation3[0], self.workstation3[1])))
         print("Workstation 3 Arrival Rate \t-> \t{}".format(self.arrivalRate(self.workstation3[0], self.workstation3[1])))
         print("Workstation 3 Little's Law \t-> \t{}".format(self.littleLaw(self.arrivalRate(self.workstation3[0], self.workstation3[1]), self.averageArr(self.workstation3[0], self.workstation3[1]))))
-
+        print()
+        print("Entire Simulation Average")
     def clockCheck(self, array1, array2):
         for x in range(len(array2)):
             if (array1[x] > array2[x]):

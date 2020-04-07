@@ -3,10 +3,11 @@ import threading
 import time
 
 class Buffer:
-    def __init__(self, blackbox):
+    def __init__(self, name, blackbox):
         self.q = queue.Queue(3)
         self.qsize = 0
         self.blackbox = blackbox
+        self.name = name
 
     # comment
     def getItem(self):
@@ -14,7 +15,12 @@ class Buffer:
             return False
         item = self.q.get()
         self.qsize = self.qsize - 1
-        self.blackbox.component1[1].append(time.time())
+        if self.name == 1:
+            self.blackbox.component1[1].append(time.time())
+        elif self.name == 2:
+            self.blackbox.component12[1].append(time.time())
+        elif self.name == 3:
+            self.blackbox.component13[1].append(time.time())
         return item
 
     def putItem(self, item):
@@ -22,7 +28,12 @@ class Buffer:
             return False
         self.q.put(item)
         self.qsize = self.qsize + 1
-        self.blackbox.component1[0].append(time.time())
+        if self.name == 1:
+            self.blackbox.component1[0].append(time.time())
+        elif self.name == 2:
+            self.blackbox.component12[0].append(time.time())
+        elif self.name == 3:
+            self.blackbox.component13[0].append(time.time())
         return True
     
     def size(self):

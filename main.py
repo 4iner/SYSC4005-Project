@@ -19,9 +19,9 @@ def main():
     blackbox = Blackbox()
 
     # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
-    b1 = Buffer(blackbox)
-    b2 = Buffer(blackbox)
-    b3 = Buffer(blackbox)
+    b1 = Buffer(1, blackbox)
+    b2 = Buffer(2, blackbox)
+    b3 = Buffer(3, blackbox)
     b4 = Buffer23(2, blackbox) # c2 buffer
     b5 = Buffer23(3, blackbox) # c3 buffer
 
