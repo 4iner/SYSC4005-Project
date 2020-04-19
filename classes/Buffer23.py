@@ -21,7 +21,7 @@ class Buffer23:
             while(self.q.qsize() == 0):
                 # calculate time blocked here for workstation2/3, can be done here OR in workstation2/3 before/after get
                 # can get workstation name from threading.currentThread().getName()
-
+               
                 self.cv.wait()  # release lock and wait
 
 
@@ -35,6 +35,7 @@ class Buffer23:
             blocked=False
             bt = time.time()
             while self.q.qsize() >= 2:
+                Shared.log("Inspector 2: blocked")
                 blocked=True
                 # calculate time blocked here for inspector2
                 # calculate inspector2 block time here maybe?
