@@ -8,6 +8,7 @@ from classes.Inspector2 import Inspector2
 from classes.Workstation1 import Workstation1
 from classes.Workstation2 import Workstation2
 from classes.Workstation3 import Workstation3
+from classes.BlackBox import Blackbox
 from helper import getValWei, getValXP
 import shutil
 import os
@@ -16,9 +17,9 @@ import time
 
 
 def main():
-   
+
+
     # Prompt user for type of data, generated/given
-    generatedDataChosen = False
     print("Enter 1 for Given data, 2 to Generate data")
     genOrGiven = int(input())
     if(genOrGiven == 2):
@@ -41,32 +42,29 @@ def main():
             writeTo('data_generated/servinsp1.dat','weibull',size,alpha=11,beta=1.2)
             writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
             writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
-
         generatedDataChosen = True
-            
-
-    else: 
-        
-        pass
     print("Enter number of replications:")
     replications= int(input())
     
     replicationsData = []
     for x in range(replications):
-    # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
-        b1 = Buffer()
-        b2 = Buffer()
-        b3 = Buffer()
-        b4 = Buffer23() # c2 buffer
-        b5 = Buffer23() # c3 buffer
+        #Initiate Blackbox
+        blackbox = Blackbox()
+
+        # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
+        b1 = Buffer(1, blackbox)
+        b2 = Buffer(2, blackbox)
+        b3 = Buffer(3, blackbox)
+        b4 = Buffer23(2, blackbox) # c2 buffer
+        b5 = Buffer23(3, blackbox) # c3 buffer
 
         # create threads given the buffers
         bb = BufferBox(b1, b2, b3)
-        i1 = Inspector1([Component.C1], bb)
-        i2 = Inspector2([Component.C2, Component.C3], b4, b5)
-        w1 = Workstation1(bb)
-        w2 = Workstation2(bb, b4)
-        w3 = Workstation3(bb, b5)
+        i1 = Inspector1([Component.C1], bb, blackbox)
+        i2 = Inspector2([Component.C2, Component.C3], b4, b5, blackbox)
+        w1 = Workstation1(bb, blackbox)
+        w2 = Workstation2(bb, b4, blackbox)
+        w3 = Workstation3(bb, b5, blackbox)
 
         # making the threads daemon, so if one of the threads stop then the program stops
         # similar to a manufacturing facility, if they don't have the components then no
@@ -78,7 +76,7 @@ def main():
         w3.daemon = True
 
         # indicator to see when a inspector or workstation has completed their commands
-        ind = Indicator([i1, i2, w1, w2, w3])
+        ind = Indicator([i1, i2, w1, w2, w3], blackbox)
 
         if generatedDataChosen:
             # set data directory for workstations and inspectors based on generated data
@@ -109,7 +107,7 @@ def main():
         th3= w3.counter  /  th2
 
         #array [w1,w2,w3,idle1,idle2]
-        rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf, b4.blockedTime*tf + b5.blockedTime*tf]
+        rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf/th2, (b4.blockedTime*tf + b5.blockedTime*tf)/th2]
         
         replicationsData.append(rep_x_data)
     # print everything

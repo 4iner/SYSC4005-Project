@@ -8,10 +8,11 @@ from classes.Shared import Shared
 # keeps a counter of P3s made 
 class Workstation3(threading.Thread):
     datadir = "data/ws3.dat"
-    def __init__(self, bufferbox, buffer2):
+    def __init__(self, bufferbox, buffer2, blackbox):
         super(Workstation3, self).__init__(name="Workstation3")
         self.bufferbox = bufferbox
         self.buffer2 = buffer2
+        self.blackbox = blackbox
         self.counter = 0
 
     # Processes item given t delay. C3 is received first because
@@ -22,7 +23,9 @@ class Workstation3(threading.Thread):
         item1 = self.bufferbox.getItem3()
         Shared.log("Workstation 3: Got C1")
         Shared.log("Workstation 3 is processing P3 with %f delay" % t)
+        self.blackbox.workstation3[0].append(time.time())
         time.sleep(t)
+        self.blackbox.workstation3[1].append(time.time())
         Shared.log("Workstation 3 made P3")
         self.counter += 1
         Shared.log("{} so far".format(self.counter))
