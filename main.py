@@ -17,35 +17,7 @@ import time
 
 
 def main():
-    #Initiate Blackbox
-    blackbox = Blackbox()
 
-    # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
-    b1 = Buffer(1, blackbox)
-    b2 = Buffer(2, blackbox)
-    b3 = Buffer(3, blackbox)
-    b4 = Buffer23(2, blackbox) # c2 buffer
-    b5 = Buffer23(3, blackbox) # c3 buffer
-
-    # create threads given the buffers
-    bb = BufferBox(b1, b2, b3)
-    i1 = Inspector1([Component.C1], bb, blackbox)
-    i2 = Inspector2([Component.C2, Component.C3], b4, b5, blackbox)
-    w1 = Workstation1(bb, blackbox)
-    w2 = Workstation2(bb, b4, blackbox)
-    w3 = Workstation3(bb, b5, blackbox)
-
-    # making the threads daemon, so if one of the threads stop then the program stops
-    # similar to a manufacturing facility, if they don't have the components then no
-    # products can be made
-    i1.daemon = True
-    i2.daemon = True
-    w1.daemon = True
-    w2.daemon = True
-    w3.daemon = True
-
-    # indicator to see when a inspector or workstation has completed their commands
-    ind = Indicator([i1, i2, w1, w2, w3], blackbox)
 
     # Prompt user for type of data, generated/given
     print("Enter 1 for Given data, 2 to Generate data")
@@ -70,43 +42,29 @@ def main():
             writeTo('data_generated/servinsp1.dat','weibull',size,alpha=11,beta=1.2)
             writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
             writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
-    
-    elif genOrGiven == 3:
-        print("Enter 1 for 1000 Samples, 2 for 30000 Samples")
-        input_key = int(input())
-        if input_key != 1 and input_key != 2:
-            print('Invalid Input')
-            pass
-        else :
-            validate = Validation(input_key)
-            # Generated data is created with parameters calculated from the data. The report should contain these values.
-            writeTo('data_generated/ws1.dat','exponential',size,mean=4.604417)
-            writeTo('data_generated/ws2.dat','exponential',size,mean=11.09261)
-            writeTo('data_generated/ws3.dat','weibull',size,alpha=9,beta=1)
-            writeTo('data_generated/servinsp1.dat','weibull',size,alpha=11,beta=1.2)
-            writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
-            writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
-
         generatedDataChosen = True
     print("Enter number of replications:")
     replications= int(input())
     
     replicationsData = []
     for x in range(replications):
-    # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
-        b1 = Buffer()
-        b2 = Buffer()
-        b3 = Buffer()
-        b4 = Buffer23() # c2 buffer
-        b5 = Buffer23() # c3 buffer
+        #Initiate Blackbox
+        blackbox = Blackbox()
+
+        # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
+        b1 = Buffer(1, blackbox)
+        b2 = Buffer(2, blackbox)
+        b3 = Buffer(3, blackbox)
+        b4 = Buffer23(2, blackbox) # c2 buffer
+        b5 = Buffer23(3, blackbox) # c3 buffer
 
         # create threads given the buffers
         bb = BufferBox(b1, b2, b3)
-        i1 = Inspector1([Component.C1], bb)
-        i2 = Inspector2([Component.C2, Component.C3], b4, b5)
-        w1 = Workstation1(bb)
-        w2 = Workstation2(bb, b4)
-        w3 = Workstation3(bb, b5)
+        i1 = Inspector1([Component.C1], bb, blackbox)
+        i2 = Inspector2([Component.C2, Component.C3], b4, b5, blackbox)
+        w1 = Workstation1(bb, blackbox)
+        w2 = Workstation2(bb, b4, blackbox)
+        w3 = Workstation3(bb, b5, blackbox)
 
         # making the threads daemon, so if one of the threads stop then the program stops
         # similar to a manufacturing facility, if they don't have the components then no
@@ -118,7 +76,7 @@ def main():
         w3.daemon = True
 
         # indicator to see when a inspector or workstation has completed their commands
-        ind = Indicator([i1, i2, w1, w2, w3])
+        ind = Indicator([i1, i2, w1, w2, w3], blackbox)
 
         if generatedDataChosen:
             # set data directory for workstations and inspectors based on generated data
