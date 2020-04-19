@@ -35,7 +35,7 @@ class Indicator(threading.Thread):
             th1= self.threads[3].counter  /  th2
             th3= self.threads[4].counter  /  th2
 
-            print("%f %f %f %f %f" % (th*60, th1*60, th3*60, self.threads[0].bufferbox.blockedTime * tf, self.threads[1].buffer2.blockedTime*tf + self.threads[1].buffer3.blockedTime*tf))
+            print("%f %f %f %f %f" % (th*60, th1*60, th3*60, (self.threads[0].bufferbox.blockedTime)/th2 * tf, (self.threads[1].buffer2.blockedTime*tf + self.threads[1].buffer3.blockedTime*tf)/th2))
 
         #array [w1,w2,w3,idle1,idle2]
         # print out results
@@ -45,3 +45,4 @@ class Indicator(threading.Thread):
             Shared.log("Workstation {} made {} P{} Product(s)".format(thread - 1, self.threads[thread].counter, thread - 1))
         self.blackbox.endTime = time.time()
         self.blackbox.roundCheck()
+ 

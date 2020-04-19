@@ -36,10 +36,10 @@ class BufferBox:
                 self.buffer3.putItem(item)
             elif self.buffer2.size() == 0:
                 self.buffer2.putItem(item)
-            elif self.buffer3.size() == 1:
-                self.buffer3.putItem(item)
             elif self.buffer2.size() == 1:
                 self.buffer2.putItem(item)
+            elif self.buffer3.size() == 1:
+                self.buffer3.putItem(item)
             else: 
                 self.buffer1.putItem(item)
 
