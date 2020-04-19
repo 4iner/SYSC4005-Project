@@ -9,17 +9,20 @@ from classes.Shared import Shared
 # sends them to the bufferbox, which decides the routing policy to the workstations
 class Inspector1(threading.Thread):
     datadir = "data/servinsp1.dat"
-    def __init__(self, component, bufferbox):
+    def __init__(self, component, bufferbox, blackbox):
         super(Inspector1, self).__init__(name="Inspector1")
         self._lock = threading.Lock()
         self.component = component
         self.bufferbox = bufferbox
+        self.blackbox = blackbox
         self.indicator = None
 
     # inspect an item given a delay
     def inspectItem(self, delay):
         Shared.log("Inspector 1: Inspecting Item - Time Delay: %s seconds" % delay)
+        self.blackbox.inspector1[0].append(time.time())
         time.sleep(delay)
+        self.blackbox.inspector1[1].append(time.time())
         self.sendItem()
 
     # finished processing, send item to bufferbox

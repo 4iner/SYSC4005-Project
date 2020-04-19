@@ -6,10 +6,11 @@ from classes.Shared import Shared
 # this indicator class checks if any inspectors has completed their service time
 class Indicator(threading.Thread):
 
-    def __init__(self, threads):
+    def __init__(self, threads, blackbox):
         super(Indicator, self).__init__(name="Indicator")
         self.isdone = None
         self.threads = threads
+        self.blackbox = blackbox
 
     def run(self):
         while True:
@@ -22,6 +23,9 @@ class Indicator(threading.Thread):
             if self.isdone:
                 break
         # print out results
+        time.sleep(1)
         Shared.log("Manufacturer finished.")
         for thread in range(2, 5):
             Shared.log("Workstation {} made {} P{} Product(s)".format(thread - 1, self.threads[thread].counter, thread - 1))
+        self.blackbox.endTime = time.time()
+        self.blackbox.roundCheck()

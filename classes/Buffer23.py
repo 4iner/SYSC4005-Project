@@ -9,10 +9,12 @@ from classes.Shared import Shared
 # a condition variable cv, which lets us wait in the thread for something to happen
 class Buffer23:
 
-    def __init__(self):
+    def __init__(self, name, blackbox):
         self.cv = threading.Condition()
         self.q = queue.Queue(3)
-        self.blockedTime=0
+        self.blockedTime = 0
+        self.name = name
+        self.blackbox = blackbox
 
     # get item from queue, blocking if empty
     def getItem(self):
@@ -24,11 +26,15 @@ class Buffer23:
                
                 self.cv.wait()  # release lock and wait
 
-
             item = self.q.get()
+            if self.name == 2:
+                self.blackbox.component2[1].append(time.time())
+            elif self.name == 3:
+                self.blackbox.component3[1].append(time.time())
             self.cv.notifyAll() # notify waiting threads
             self.cv.release() # release lock
             return item
+
     # put item in queue, blocking if it is full
     def putItem(self, item):
             self.cv.acquire() # acquire lock
@@ -43,7 +49,12 @@ class Buffer23:
             if (blocked):
                 self.blockedTime += time.time() - bt
             self.q.put(item)
+            if self.name == 2:
+                self.blackbox.component2[0].append(time.time())
+            elif self.name == 3:
+                self.blackbox.component3[0].append(time.time())
             self.cv.notifyAll() # notify waiting threads
             self.cv.release() # release lock
+    
     def size(self):
         return self.q.qsize()
