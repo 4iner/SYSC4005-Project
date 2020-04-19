@@ -39,7 +39,7 @@ class Buffer23:
     def putItem(self, item):
             self.cv.acquire() # acquire lock
             blocked=False
-            bt = time.time()
+            self.bt = time.time()
             while self.q.qsize() >= 2:
                 Shared.log("Inspector 2: blocked")
                 blocked=True
@@ -47,7 +47,7 @@ class Buffer23:
                 # calculate inspector2 block time here maybe?
                 self.cv.wait() # release lock and wait
             if (blocked):
-                self.blockedTime += time.time() - bt
+                self.blockedTime += time.time() - self.bt
             self.q.put(item)
             if self.name == 2:
                 self.blackbox.component2[0].append(time.time())

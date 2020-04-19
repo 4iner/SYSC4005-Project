@@ -21,4 +21,5 @@ class Shared:
         return float(st)/Shared.timeFactor
 
     def log(txt):
-        logger.info(txt)
+        # logger.info(txt)
+        pass;
