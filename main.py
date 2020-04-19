@@ -109,7 +109,7 @@ def main():
         th3= w3.counter  /  th2
 
         #array [w1,w2,w3,idle1,idle2]
-        rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf, b4.blockedTime*tf + b5.blockedTime*tf]
+        rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf/th2, (b4.blockedTime*tf + b5.blockedTime*tf)/th2]
         
         replicationsData.append(rep_x_data)
     # print everything

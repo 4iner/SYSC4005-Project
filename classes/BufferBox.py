@@ -30,18 +30,17 @@ class BufferBox:
                 self.cv.wait()
             if(blocked):
                 self.blockedTime += time.time() - bt
-            if self.buffer1.size() == 0 :
-                self.buffer1.putItem(item)
-            elif self.buffer2.size() == 0:
-                self.buffer2.putItem(item)
-            elif self.buffer3.size() == 0:
+                
+            if self.buffer3.size() == 0:
                 self.buffer3.putItem(item)
-            elif self.buffer1.size() == 1:
-                self.buffer1.putItem(item)
-            elif self.buffer2.size() == 1:
+            elif self.buffer2.size() == 0:
                 self.buffer2.putItem(item)
             elif self.buffer3.size() == 1:
                 self.buffer3.putItem(item)
+            elif self.buffer2.size() == 1:
+                self.buffer2.putItem(item)
+            else: 
+                self.buffer1.putItem(item)
 
             self.cv.notifyAll()
             self.cv.release()
