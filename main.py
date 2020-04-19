@@ -8,7 +8,7 @@ from classes.Inspector2 import Inspector2
 from classes.Workstation1 import Workstation1
 from classes.Workstation2 import Workstation2
 from classes.Workstation3 import Workstation3
-from classes.Validation import Validation
+from classes.BlackBox import Blackbox
 from helper import getValWei, getValXP
 import shutil
 import os
@@ -17,9 +17,38 @@ import time
 
 
 def main():
-   
+    #Initiate Blackbox
+    blackbox = Blackbox()
+
+    # create buffers for the components. b1,b2,b3 hold C1, b4 holds C2, b5 holds C3
+    b1 = Buffer(1, blackbox)
+    b2 = Buffer(2, blackbox)
+    b3 = Buffer(3, blackbox)
+    b4 = Buffer23(2, blackbox) # c2 buffer
+    b5 = Buffer23(3, blackbox) # c3 buffer
+
+    # create threads given the buffers
+    bb = BufferBox(b1, b2, b3)
+    i1 = Inspector1([Component.C1], bb, blackbox)
+    i2 = Inspector2([Component.C2, Component.C3], b4, b5, blackbox)
+    w1 = Workstation1(bb, blackbox)
+    w2 = Workstation2(bb, b4, blackbox)
+    w3 = Workstation3(bb, b5, blackbox)
+
+    # making the threads daemon, so if one of the threads stop then the program stops
+    # similar to a manufacturing facility, if they don't have the components then no
+    # products can be made
+    i1.daemon = True
+    i2.daemon = True
+    w1.daemon = True
+    w2.daemon = True
+    w3.daemon = True
+
+    # indicator to see when a inspector or workstation has completed their commands
+    ind = Indicator([i1, i2, w1, w2, w3], blackbox)
+
     # Prompt user for type of data, generated/given
-    print("Enter 1 for Given data, 2 to Generate data, 3 to Validate data")
+    print("Enter 1 for Given data, 2 to Generate data")
     genOrGiven = int(input())
     if(genOrGiven == 2):
         # print("Deleting previous generated data...")

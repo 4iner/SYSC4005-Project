@@ -2,6 +2,7 @@ import sys
 import threading
 import time
 
+from classes.BlackBox import Blackbox
 from classes.Shared import Shared
 
 
@@ -9,9 +10,10 @@ from classes.Shared import Shared
 # keeps a counter of P1s made 
 class Workstation1(threading.Thread):
     datadir = "data/ws1.dat"
-    def __init__(self, bufferbox):
+    def __init__(self, bufferbox, blackbox):
         super(Workstation1,self).__init__(name="Workstation1")
         self.buffer = bufferbox
+        self.blackbox = blackbox
         self.counter = 0
 
     # Processes item given t delay. This will produce most products since it only needs C1
@@ -19,7 +21,9 @@ class Workstation1(threading.Thread):
         self.buffer.getItem1()
         Shared.log("Workstation 1: Got C1")
         Shared.log("Workstation 1 is processing P1 with %f delay" % t)
+        self.blackbox.workstation1[0].append(time.time())
         time.sleep(t)
+        self.blackbox.workstation1[1].append(time.time())
         Shared.log("Workstation 1 made P1")
         self.counter += 1
         Shared.log("{} so far".format(self.counter))
