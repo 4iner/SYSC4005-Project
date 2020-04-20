@@ -96,29 +96,29 @@ def main():
         w2.start()
         w3.start()
         ind.start()
-        ind.join()
+        #ind.join()
 
-        tf = Shared.timeFactor
-        t2 = time.time()
-        tim = t2-t1
-        th2 = tim * tf
-        th= w1.counter  /  th2
-        th1= w2.counter  /  th2
-        th3= w3.counter  /  th2
+    #     tf = Shared.timeFactor
+    #     t2 = time.time()
+    #     tim = t2-t1
+    #     th2 = tim * tf
+    #     th= w1.counter  /  th2
+    #     th1= w2.counter  /  th2
+    #     th3= w3.counter  /  th2
 
-        #array [w1,w2,w3,idle1,idle2]
-        rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf/th2, (b4.blockedTime*tf + b5.blockedTime*tf)/th2]
+    #     #array [w1,w2,w3,idle1,idle2]
+    #     rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf/th2, (b4.blockedTime*tf + b5.blockedTime*tf)/th2]
         
-        replicationsData.append(rep_x_data)
-    # print everything
+    #     replicationsData.append(rep_x_data)
+    # # print everything
 
-    for r in range(len(replicationsData)):
-        Shared.log("Replication: %d" % (r + 1))
-        print(str(replicationsData[r][0]))
-        print(str(replicationsData[r][1]))
-        print(str(replicationsData[r][2]))
-        print(str(replicationsData[r][3]))
-        print(str(replicationsData[r][4]))
+    # for r in range(len(replicationsData)):
+    #     Shared.log("Replication: %d" % (r + 1))
+    #     print(str(replicationsData[r][0]))
+    #     print(str(replicationsData[r][1]))
+    #     print(str(replicationsData[r][2]))
+    #     print(str(replicationsData[r][3]))
+    #     print(str(replicationsData[r][4]))
         
     
         
