@@ -21,6 +21,7 @@ class Inspector1(threading.Thread):
     def inspectItem(self, delay):
         Shared.log("Inspector 1: Inspecting Item - Time Delay: %s seconds" % delay)
         self.blackbox.inspector1[0].append(time.time())
+        self.blackbox.system[0].append(time.time())
         time.sleep(delay)
         self.blackbox.inspector1[1].append(time.time())
         self.sendItem()

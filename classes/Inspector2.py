@@ -25,6 +25,7 @@ class Inspector2(threading.Thread):
     def inspectItem(self, delay, component):
         Shared.log("Inspector 2: Inspecting Item {} with Time Delay: {} seconds".format(component, delay))
         self.blackbox.inspector2[0].append(time.time())
+        self.blackbox.system[0].append(time.time())
         time.sleep(delay)
         self.blackbox.inspector2[1].append(time.time())
         Shared.log("Inspector 2: Finished {}".format(component))
