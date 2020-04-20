@@ -43,6 +43,8 @@ class Blackbox:
         # Arrival Time Start
         self.startTime = time.time()
         self.endTime = 0
+        # Temp Theory Value
+        self.theoryLittle = 0
         
     # Idea with arrays
     # Each queue will have a 2D-Array arr[a,b]
@@ -182,7 +184,7 @@ class Blackbox:
         for x in range(len(array[1])):
             sum += float(array[1][x] - array[0][x])
         mean = sum / len(array[1])
-        return np.random.exponential(mean, 1)[0] #* 60 #/ Shared.timeFactor
+        return np.random.exponential(mean, 1)[0]
 
     def theoryLittleLaw(self, array):
         total = 0
@@ -190,7 +192,8 @@ class Blackbox:
             total += self.theoryAverageArr(array)
         if total == 0:
             return -1
-        return total/len(array[1]) * (len(array[1]) - 1)/(self.endTime - self.startTime)
+        self.theoryLittle = total/len(array[1]) * (len(array[1]) - 1)/(self.endTime - self.startTime)
+        return self.theoryLittle
 
     def actualLittleLaw(self, array1, array2):
         return self.arrivalRate(array1, array2) * self.averageArr(array1, array2)
@@ -198,8 +201,7 @@ class Blackbox:
     def yieldLittle(self, array, array1, array2):
         if self.theoryLittleLaw(array) == 0:
             return -1
-        theory = self.theoryLittleLaw(array)
-        return str(round((abs(self.actualLittleLaw(array1,array2) - theory)) / theory * 100, 2))
+        return str(round((abs(self.actualLittleLaw(array1,array2) - self.theoryLittle)) / self.theoryLittle * 100, 2))
 
     def printArr(self, array):
         for x in range(len(array[0])):
