@@ -182,7 +182,7 @@ class Blackbox:
         for x in range(len(array[1])):
             datatotal += float(array[1][x] - array[0][x])
         mean = datatotal / len(array[1])
-        return np.random.exponential(mean, 1)[0] #* 60 / Shared.timeFactor
+        return np.random.exponential(mean, 1)[0] #* 60 #/ Shared.timeFactor
 
     def theoryLittleLaw(self, array):
         count = 0
@@ -190,7 +190,7 @@ class Blackbox:
             count += self.theoryAverageArr(array)
         if count == 0:
             return -1
-        return count/len(array[1])
+        return count/len(array[1]) * (len(array[1]) - 1)/(self.endTime - self.startTime)
 
     def actualLittleLaw(self, array1, array2):
         return self.arrivalRate(array1, array2) * self.averageArr(array1, array2)
