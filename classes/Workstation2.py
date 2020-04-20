@@ -29,7 +29,7 @@ class Workstation2(threading.Thread):
         self.blackbox.system[1].append(time.time())
         Shared.log("Workstation 2 made P2")
         self.counter += 1
-        Shared.log("{} so far".format(self.counter))
+        Shared.log("Workstation 2: Made {} so far".format(self.counter))
 
     def run(self):
         f = open(self.datadir, "r")

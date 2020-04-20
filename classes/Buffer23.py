@@ -15,6 +15,7 @@ class Buffer23:
         self.blockedTime = 0
         self.name = name
         self.blackbox = blackbox
+        self.bt = 0
 
     # get item from queue, blocking if empty
     def getItem(self):

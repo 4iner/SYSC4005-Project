@@ -43,8 +43,17 @@ def main():
             writeTo('data_generated/servinsp22.dat','exponential',size,mean=15.5369)
             writeTo('data_generated/servinsp23.dat','exponential',size,mean=20.63276)
         generatedDataChosen = True
-    print("Enter number of replications:")
-    replications= int(input())
+    
+    print("Enter 1 for Simulation Outputs, 2 for Replication data")
+    user_input = int(input())
+    rep = False
+    if user_input == 2:
+        print("Enter number of replications:")
+        replications = int(input())
+        rep = True
+        Shared.disable()
+    else:
+        replications = 1
     
     replicationsData = []
     for x in range(replications):
@@ -76,7 +85,7 @@ def main():
         w3.daemon = True
 
         # indicator to see when a inspector or workstation has completed their commands
-        ind = Indicator([i1, i2, w1, w2, w3], blackbox)
+        ind = Indicator([i1, i2, w1, w2, w3], blackbox, rep)
 
         if generatedDataChosen:
             # set data directory for workstations and inspectors based on generated data
@@ -95,33 +104,8 @@ def main():
         w1.start()
         w2.start()
         w3.start()
-        ind.start()
-        #ind.join()
-
-    #     tf = Shared.timeFactor
-    #     t2 = time.time()
-    #     tim = t2-t1
-    #     th2 = tim * tf
-    #     th= w1.counter  /  th2
-    #     th1= w2.counter  /  th2
-    #     th3= w3.counter  /  th2
-
-    #     #array [w1,w2,w3,idle1,idle2]
-    #     rep_x_data = [th*60, th1*60, th3*60, bb.blockedTime * tf/th2, (b4.blockedTime*tf + b5.blockedTime*tf)/th2]
-        
-    #     replicationsData.append(rep_x_data)
-    # # print everything
-
-    # for r in range(len(replicationsData)):
-    #     Shared.log("Replication: %d" % (r + 1))
-    #     print(str(replicationsData[r][0]))
-    #     print(str(replicationsData[r][1]))
-    #     print(str(replicationsData[r][2]))
-    #     print(str(replicationsData[r][3]))
-    #     print(str(replicationsData[r][4]))
-        
-    
-        
+        ind.start()     
+        ind.join()   
 
 def writeTo(file, dist, size, mean=0, alpha=0, beta=0):
     if dist == "weibull":
