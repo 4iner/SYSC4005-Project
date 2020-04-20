@@ -18,7 +18,7 @@ import time
 
 def main():
 
-
+    generatedDataChosen = False
     # Prompt user for type of data, generated/given
     print("Enter 1 for Given data, 2 to Generate data")
     genOrGiven = int(input())

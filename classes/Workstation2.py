@@ -26,6 +26,7 @@ class Workstation2(threading.Thread):
         self.blackbox.workstation2[0].append(time.time())
         time.sleep(t)
         self.blackbox.workstation2[1].append(time.time())
+        self.blackbox.system[1].append(time.time())
         Shared.log("Workstation 2 made P2")
         self.counter += 1
         Shared.log("{} so far".format(self.counter))
