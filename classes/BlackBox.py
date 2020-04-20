@@ -178,19 +178,19 @@ class Blackbox:
         return (len(array2) - 1)/(self.endTime - self.startTime)
 
     def theoryAverageArr(self, array):
-        datatotal = 0
+        sum = 0
         for x in range(len(array[1])):
-            datatotal += float(array[1][x] - array[0][x])
-        mean = datatotal / len(array[1])
+            sum += float(array[1][x] - array[0][x])
+        mean = sum / len(array[1])
         return np.random.exponential(mean, 1)[0] #* 60 #/ Shared.timeFactor
 
     def theoryLittleLaw(self, array):
-        count = 0
+        total = 0
         for x in range(len(array[1])):
-            count += self.theoryAverageArr(array)
-        if count == 0:
+            total += self.theoryAverageArr(array)
+        if total == 0:
             return -1
-        return count/len(array[1]) * (len(array[1]) - 1)/(self.endTime - self.startTime)
+        return total/len(array[1]) * (len(array[1]) - 1)/(self.endTime - self.startTime)
 
     def actualLittleLaw(self, array1, array2):
         return self.arrivalRate(array1, array2) * self.averageArr(array1, array2)
