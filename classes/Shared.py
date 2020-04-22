@@ -16,10 +16,11 @@ class Shared:
     timeFactor = 100
 
 
-
     def timeFromString(st):
         return float(st)/Shared.timeFactor
 
     def log(txt):
-        # logger.info(txt)
-        pass;
+        logger.info(txt)
+
+    def disable():
+        logging.disable(logging.CRITICAL)
